@@ -13,4 +13,4 @@ const checkFieldsNotEmpty = (obj:Object, isValid=true): boolean => {
     return isValid;
 }
 
-export {checkFieldsNotEmpty}
+export { checkFieldsNotEmpty }

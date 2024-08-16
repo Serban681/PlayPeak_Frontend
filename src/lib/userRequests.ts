@@ -2,6 +2,22 @@
 
 import { User } from "@/models/User";
 
+export async function login(email: string, password: string) : Promise<Response> {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    if (!response.ok) {
+        return Promise.reject(await response.json());
+    }
+
+    return response.json();
+}
+
 export async function getAllUsers() : Promise<User[]> {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users');
 

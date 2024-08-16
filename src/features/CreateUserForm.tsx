@@ -1,8 +1,8 @@
 'use client'
 
-import Btn from "@/components/Btn";
-import FormCheckInput from "@/components/FormCheckInput";
-import FormTextInput from "@/components/FormTextInput";
+import BtnInput from "@/components/react-based-inputs/BtnInput";
+import FormCheckInput from "@/components/react-based-inputs/FormCheckInput";
+import FormTextInput from "@/components/react-based-inputs/FormTextInput";
 import { addUser } from "@/lib/userRequests";
 import { checkFieldsNotEmpty } from "@/lib/Validators";
 import { Address } from "@/models/Address";
@@ -108,7 +108,7 @@ export default function UserRegisterForm() {
                 <FormTextInput label={"Password"} type={"password"} name="password" value={user.password} changeFn={updateForm} addValidation validated={!!user.password} />
                 <FormTextInput label={"Confirm password"} type={"password"} name="passwordConfirm" value={user.passwordConfirm} changeFn={updateForm} addValidation validated={!!user.passwordConfirm && user.password === user.passwordConfirm} />
                 
-                <Btn text={"Next"} handleClick={goToNextStep} />
+                <BtnInput text={"Next"} handleClick={goToNextStep} />
             </>
             
         )}
@@ -126,12 +126,12 @@ export default function UserRegisterForm() {
                 <FormCheckInput label={"Use same address for billing"} name={"useAddressForBilling"} checked={user.useAddressForBilling} handleCheck={updateFormBool} />
 
                 <div></div>
-                <Btn text={"Prev"} handleClick={goToPrevStep} customStyles={"mr-2"} />
+                <BtnInput text={"Prev"} handleClick={goToPrevStep} customStyles={"mr-2"} />
                 {
                     user.useAddressForBilling ? 
-                        <Btn text={"Submit"} submit handleClick={submitForm} formValid={checkFieldsNotEmpty(user) && (user.password === user.passwordConfirm)} /> 
+                        <BtnInput text={"Submit"} submit handleClick={submitForm} formValid={checkFieldsNotEmpty(user) && (user.password === user.passwordConfirm)} /> 
                         : 
-                        <Btn text={"Next"} handleClick={goToNextStep} />
+                        <BtnInput text={"Next"} handleClick={goToNextStep} />
                 }
             </>
         )}
@@ -146,8 +146,8 @@ export default function UserRegisterForm() {
                 <FormTextInput label={"County"} type={"text"} name="defaultBillingAddress.county" value={user.defaultBillingAddress.county} changeFn={updateNestedFormString} addValidation validated={!!user.defaultBillingAddress.county} />
                 <FormTextInput label={"Country"} type={"text"} name="defaultBillingAddress.country" value={user.defaultBillingAddress.country} changeFn={updateNestedFormString} addValidation validated={!!user.defaultBillingAddress.country} />
 
-                <Btn text={"Prev"} handleClick={goToPrevStep} customStyles={"mr-2"} />
-                <Btn text={"Submit"} submit handleClick={submitForm} formValid={checkFieldsNotEmpty(user) && (user.password === user.passwordConfirm)} />
+                <BtnInput text={"Prev"} handleClick={goToPrevStep} customStyles={"mr-2"} />
+                <BtnInput text={"Submit"} submit handleClick={submitForm} formValid={checkFieldsNotEmpty(user) && (user.password === user.passwordConfirm)} />
             </>
         )}
         </form>
