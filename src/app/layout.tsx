@@ -37,7 +37,7 @@ export default function RootLayout({
           <div className="mx-12 mt-7">
             {children}
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </StoreProvider>
       </body>
     </html>

@@ -24,6 +24,9 @@ const config: Config = {
         'dark-gray': '#585858',
         'turqoise': '#79EBD1'
       },
+      boxShadow: {
+        'big': '0.5rem 0.5rem 0 0 black'
+      }
     },
   },
   plugins: [],

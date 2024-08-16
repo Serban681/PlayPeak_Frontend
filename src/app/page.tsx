@@ -2,6 +2,7 @@
 
 import { TagSystem } from "@/components/styled-components/Buttons";
 import { CustomDropdown } from "@/components/styled-components/CustomDropdown";
+import ProductCard from "@/components/styled-components/ProductCard";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { ProductSortMethods } from "@/enums/ProductsSortMethods";
 import { RootState } from "@/store/store";
@@ -48,48 +49,9 @@ export default function Home() {
           customStyles="inline-block sm:w-3/5 md:w-8/12 lg:w-9/12 2xl:w-11/12" />
 
         <CustomDropdown customStyles="sm:float-right" label={'Sort by'} name={'sort_dropdown'} options={Object.values(ProductSortMethods)} selected={sortingMethod} handleSelect={(name, selected) => setSortingMethod(selected)} />
-        <SectionTitle customStyles="mt-3">Clothes</SectionTitle>
+        <SectionTitle customStyles="my-3">Clothes</SectionTitle>
         
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
-        asd
-        <br />
+        <ProductCard  />
       </div>
     </>
   );
