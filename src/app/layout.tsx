@@ -6,6 +6,8 @@ import StoreProvider from "./StoreProvider";
 import { Josefin_Sans, Righteous } from "next/font/google"
 import Header from "@/components/styled-components/Header";
 import { Footer } from "@/components/styled-components/Footer";
+import { ShopProvider } from "@/context/ShopContext";
+import Notifier from "@/components/styled-components/Notifier";
 
 export const metadata: Metadata = {
   title: "Dialog Data shop",
@@ -33,11 +35,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`m-0 font-main font-light ${josefin.variable} ${righteous.variable}`}>
         <StoreProvider>
-          <Header />
-          <div className="mx-12 mt-7">
-            {children}
-          </div>
-          {/* <Footer /> */}
+          <ShopProvider>
+            <Notifier />
+            <Header />
+            <div className="mx-12 lg:mx-24 mt-7 min-h-screen">
+                {children}
+            </div>
+            <Footer />
+          </ShopProvider>
         </StoreProvider>
       </body>
     </html>

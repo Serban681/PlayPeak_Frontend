@@ -3,7 +3,6 @@ import userReducer from './userSlice';
 import storage from 'redux-persist/lib/storage'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import {
-  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -25,6 +24,9 @@ export const makeStore = () => {
         user: userReducer
     })
     ),
+    // reducer: combineReducers({
+    //       user: userReducer
+    //   }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {

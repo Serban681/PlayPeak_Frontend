@@ -12,19 +12,14 @@ export default function StoreProvider({
     children: React.ReactNode;
 }) {
     const storeRef = useRef<AppStore>()
-    const persisterStore = useRef<any>();
         
     if(!storeRef.current) {
         storeRef.current = makeStore();
     }
 
-    if(!persisterStore.current) {
-        persisterStore.current = persistStore(storeRef.current);
-    }
-
 
     return <Provider store={storeRef.current}>
-        <PersistGate loading={null} persistor={persisterStore.current}>
+        <PersistGate loading={null} persistor={persistStore(storeRef.current)}>
             {children}
         </PersistGate>
     </Provider>

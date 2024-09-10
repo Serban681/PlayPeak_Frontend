@@ -30,14 +30,18 @@ export async function getUserById(id: number) : Promise<User> {
     return response.json();
 }
 
-export async function addUser(address: User) : Promise<User> {
+export async function addUser(user: User) : Promise<User> {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(address)
+        body: JSON.stringify(user)
     });
+
+    if (!response.ok) {
+        return Promise.reject(await response.json());
+    }
 
     return response.json();
 }

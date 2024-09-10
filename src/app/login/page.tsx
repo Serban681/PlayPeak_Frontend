@@ -1,12 +1,15 @@
 'use client' 
 
-import Btn from "@/components/form-hook-lib-inputs/Btn";
-import TextInput from "@/components/form-hook-lib-inputs/TextInput";
 import { useAppDispatch } from "@/lib/hooks";
 import { login } from "@/lib/userRequests";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { setUser } from "@/store/userSlice";
+import { BigBtn } from "@/components/styled-components/Buttons";
+import { TextInput } from "@/components/styled-components/FormInput";
+import { SectionTitle } from "@/components/styled-components/SectionTitle";
+import { use, useEffect } from "react";
+import Link from "next/link";
 
 type UserCredentials = {
     email: string;
@@ -19,7 +22,7 @@ export default function Page() {
     // const defaultDeliveryAddress =  useAppSelector(selectDefaultDeliveryAddress);
 
 
-    const { register, handleSubmit, control } = useForm<UserCredentials>({
+    const { register, handleSubmit, control, formState, getValues } = useForm<UserCredentials>({
       defaultValues: {
         email: "",
         password: ""
@@ -27,10 +30,7 @@ export default function Page() {
       mode: "all",
     });
 
-    const onSubmit = handleSubmit(async (data) => {
-      // setLoading(true);
-      // dispatch(addUser(data))
-      
+    const onSubmit = handleSubmit(async (data) => {      
       login(data.email, data.password)
         .then(async res => await dispatch(setUser(res)))
         .then(() => router.push('/'))
@@ -38,18 +38,19 @@ export default function Page() {
     });
 
     return (
-        <div>
-            <h1>Login</h1>
-            
-            <form onSubmit={onSubmit}>
-                <TextInput label="Email" control={control} name="email" rules={{ required: true }} />
-                <TextInput label="Password" control={control} name="password" rules={{ required: true }} />
-                <Btn submit>Submit</Btn>
-
-                {/* TODO: Set Status repsonse error text in some way */}
-
-                {/* {error.toString()} */}
-            </form>
+        <div className="flex justify-center">
+          <div className="translate-y-1/2">
+            <div>
+              <SectionTitle customStyles="mb-5">Login</SectionTitle>
+              
+              <form onSubmit={onSubmit}>
+                  <TextInput label="Email" control={control} name="email" rules={{ required: true }} />
+                  <TextInput label="Password" control={control} name="password" rules={{ required: true }} />
+                  <Link className="block mt-[-0.5rem] mb-2 font-medium underline" href={'/create-user'}>Don't have an account? Register here!</Link>
+                  <BigBtn active={formState.isValid} customStyles="mt-3" submit>Submit</BigBtn>
+              </form>
+            </div>
+          </div>
         </div>
     );
 }

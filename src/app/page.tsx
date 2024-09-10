@@ -4,54 +4,68 @@ import { TagSystem } from "@/components/styled-components/Buttons";
 import { CustomDropdown } from "@/components/styled-components/CustomDropdown";
 import ProductCard from "@/components/styled-components/ProductCard";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
-import { ProductSortMethods } from "@/enums/ProductsSortMethods";
-import { RootState } from "@/store/store";
-import { selectUser } from "@/store/userSlice";
-import { useRouter } from "next/navigation"
+import { getKeyByValue, ProductSortMethods } from "@/enums/ProductsSortMethods";
+import { getAllCategories } from "@/lib/categoryRequests";
+import { getAllProducts } from "@/lib/productRequests";
+import { Category } from "@/models/Category";
+import { Product } from "@/models/Product";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { set } from "react-hook-form";
 
 export default function Home() {
-  const router = useRouter();
+  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-  // const user = useSelector(selectUser);
-
-  const [tags, setTags] = useState<string[]>(["Home", "About", "Contact"]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const handleTagSelection = (tag: string) => {
-    if(selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter(selectedTag => selectedTag !== tag));
+  const handleCategorySelection = (category: string) => {
+    if(!!selectedCategories.includes(category)) {
+      setSelectedCategories(selectedCategories.filter(selectedCategory => selectedCategory !== category));
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      setSelectedCategories([...selectedCategories, category]);
     }
   }
 
   const [sortingMethod, setSortingMethod] = useState<string>(ProductSortMethods.NEWEST);
 
+  useEffect(() => {
+    getAllCategories()
+      .then(res => res.map((category: Category) => category.name))
+      .then(data => setCategories(data));
+  }, [])
+
+  const [categorisedProducts, setCategorisedProducts] = useState<{
+    category: string,
+    products: Product[]
+  }[]>([]);
+
+  useEffect(() => {
+    getAllProducts(selectedCategories, getKeyByValue(sortingMethod))
+      .then(res => setCategorisedProducts(res));
+  }, [selectedCategories, sortingMethod])
+
   return (
     <>
-      {/* <h1>Home page</h1>
-      <button className="border-2" onClick={() => router.push('/create-user')}>Create user</button>
-      <br />
-      <button className="border-2" onClick={() => router.push('/login')}>Login</button> */}
-      {/* <br /> */}
-      {/* <button className="border-2" onClick={() => router.push('/add-product')}>Add Product</button> */}
-      {/* <br /><br /> */}
-      {/* {user && <div>Logged in as: {user.id}</div>} */}
-      
-      {/* <TagBtn text="Home" selected={false} handleClick={() => console.log('clicked')} /> */}
-
       <div className="sm:mt-10">
         <TagSystem 
-          tags={tags} 
-          selectedTags={selectedTags} 
-          handleTagSelection={handleTagSelection} 
-          customStyles="inline-block sm:w-3/5 md:w-8/12 lg:w-9/12 2xl:w-11/12" />
+          tags={categories} 
+          selectedTags={selectedCategories} 
+          handleTagSelection={(category) => handleCategorySelection(category)} 
+          customStyles="inline-block sm:w-3/5 md:w-8/12 lg:w-9/12 3xl:w-11/12" />
 
         <CustomDropdown customStyles="sm:float-right" label={'Sort by'} name={'sort_dropdown'} options={Object.values(ProductSortMethods)} selected={sortingMethod} handleSelect={(name, selected) => setSortingMethod(selected)} />
-        <SectionTitle customStyles="my-3">Clothes</SectionTitle>
         
-        <ProductCard  />
+        
+        
+        {categorisedProducts.length > 0 ? 
+          categorisedProducts.map((elem, index) => (
+            <div key={index}>
+              <SectionTitle customStyles="mt-8 mb-3">{elem.category}</SectionTitle>
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-14">
+                {elem.products.map(product => <ProductCard key={product.id} product={product} />)}
+              </div>
+            </div>
+          ))
+          : <div>Loading...</div>
+        }
       </div>
     </>
   );

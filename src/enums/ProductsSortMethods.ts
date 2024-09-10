@@ -6,3 +6,12 @@ export enum ProductSortMethods {
     NEWEST = "Newest First",
     OLDEST = "Oldest First"
 }
+
+export function getKeyByValue(value: string): string {
+    for (const key in ProductSortMethods) {
+        if (ProductSortMethods[key as keyof typeof ProductSortMethods] === value) {
+            return key;
+        }
+    }
+    return ProductSortMethods.NEWEST;
+}
