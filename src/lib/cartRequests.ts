@@ -10,8 +10,9 @@ export async function getCartByUserId(userId: number) : Promise<Cart> {
     return response.json();
 }
 
-export async function addProductToCart(productId: number, cartId: number) {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/cart/add-product?productId=${productId}&cartId=${cartId}`, {
+export async function addProductToCart(productVarianceId: number, cartId: number) {
+    
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/cart/add-product?productVarianceId=${productVarianceId}&cartId=${cartId}`, {
         method: 'POST'
     })
 

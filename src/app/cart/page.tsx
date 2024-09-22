@@ -19,10 +19,10 @@ export default function Page() {
             </div>
 
             {cart?.cartEntries.map((cartEntry, index) => (
-                <CartEntryComponent key={index} cartEntry={cartEntry} />
+                <CartEntryComponent customStyles="mb-5" key={index} cartEntry={cartEntry} />
             ))}
-
-            {cart?.cartEntries.length !== 0 && <BigBtn  customStyles="mt-10">Proceed to checkout</BigBtn>}
+            <h5 className="text-lg font-medium mt-10">Total Price: {cart?.totalPrice.toFixed(2)}$</h5>
+            {cart?.cartEntries.length !== 0 && <BigBtn  customStyles="mt-2">Proceed to checkout</BigBtn>}
         </div>
     )
 }

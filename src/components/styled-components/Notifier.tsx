@@ -21,7 +21,7 @@ export default function Notifier() {
     }, [notifierState])
 
     return (
-        <div className={`${show ? 'top-5' : '-top-20'} transition-all duration-300 ease-in-out z-40 bg-red-400 absolute left-1/2 translate-x-[-50%] text-white font-medium text-xl p-3 rounded-xl max-w-96 text-center`}>
+        <div className={`${show ? 'top-5' : '-top-40'} transition-all duration-300 ease-in-out z-40 bg-red-400 absolute left-1/2 translate-x-[-50%] text-white font-medium text-xl p-3 rounded-xl max-w-96 text-center`}>
             You cannot add a product to cart without logging in!
         </div>
     )

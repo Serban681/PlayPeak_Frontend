@@ -9,6 +9,15 @@ export const BigBtn = (
         );
 }
 
+export const SmallBtn = (
+    {children, submit=false, active=true, handleClick, whiteBtn=false, customStyles}: 
+    {children: ReactNode, submit?: boolean, active?: boolean, handleClick?: (e: React.FormEvent) => void, whiteBtn?: boolean, customStyles?: string}
+) => {
+    return (
+        <button disabled={!active} className={`${active ? (whiteBtn ? ' text-black bg-white border-2 border-black' : 'bg-black text-white') : 'bg-light-gray text-dark-gray' } ${customStyles} font-medium rounded-full text-sm px-5 h-8 hover:scale-110`} type={submit ? "submit" : "button"} onClick={handleClick}>{children}</button>
+    );
+}
+
 const TagBtn = ({text, selected, handleClick, customStyles}: 
     {text: string, selected: boolean, handleClick: (e: React.FormEvent) => void, customStyles?: string}) => 
         {

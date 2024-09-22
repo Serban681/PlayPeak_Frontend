@@ -5,8 +5,9 @@ import { CartEntry } from '@/models/CartEntry'
 import { useContext } from 'react';
 import { ShopContext } from '@/context/ShopContext';
 import { removeProductFromCart, updateCartEntryQuantity } from '@/lib/cartRequests';
+import { SmallTag } from './Tag';
 
-const CartEntryComponent = ({ cartEntry }: { cartEntry: CartEntry }) => {
+const CartEntryComponent = ({ customStyles, cartEntry }: { customStyles: string, cartEntry: CartEntry }) => {
     const { setCart, setNotifierState } = useContext(ShopContext)!;
 
     const increaseQuantity = (e: any) => {
@@ -35,13 +36,15 @@ const CartEntryComponent = ({ cartEntry }: { cartEntry: CartEntry }) => {
     }
 
     return (
-        <div className="px-4 w-full h-24 border-2 border-black shadow-big rounded-3xl flex justify-between items-center">
+        <div className={`${customStyles} px-4 w-full h-24 border-2 border-black shadow-big rounded-3xl flex justify-between items-center`}>
             <div className="text-xl font-medium">
-                <h5 className="inline mr-3">{cartEntry.product.name}</h5>
-                <img className="w-12 inline" src={cartEntry.product.photoUrl} />
+                <h5 className="inline mr-3">{cartEntry.productVariance.product.name}</h5>
+                <img className="w-12 hidden md:inline" src={cartEntry.productVariance.product.photoUrl} />
+                <div className='hidden lg:inline'>{ cartEntry.productVariance.attributesAndValues.map((attributeAndValue, index) => <SmallTag key={index} value={attributeAndValue.value} customStyles='ml-2' />) }</div> 
             </div>
             <div>
-                <h5 className="mr-4 text-base font-medium inline">Price: {cartEntry.product.price.toFixed(2)}$ * <span className="bg-black text-white p-1">{cartEntry.quantity}</span> = {cartEntry.totalPrice.toFixed(2)}$</h5>
+                <h5 className="mr-4 text-base font-medium hidden lg:inline">Price: {cartEntry.productVariance.product.price.toFixed(2)}$ * <span className="bg-black text-white p-1">{cartEntry.quantity}</span> = {cartEntry.totalPrice.toFixed(2)}$</h5>
+                <h5 className="mr-4 text-base font-medium inline lg:hidden">Qty: <span className="bg-black text-white p-1">{cartEntry.quantity}</span></h5>
                 <button onClick={decreaseQuantity} className="mr-2 hover:scale-110 translate-y-[-0.1rem] bg-black inline-flex justify-center items-center text-white text-xl font-medium rounded-full w-8 h-8">
                     <div className="w-3 h-[0.2rem] bg-white"></div>
                 </button>

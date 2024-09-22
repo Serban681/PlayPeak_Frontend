@@ -5,7 +5,9 @@ import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { ShopContext } from "@/context/ShopContext";
 import { addProductToCart } from "@/lib/cartRequests";
 import { getProductById } from "@/lib/productRequests";
+import { getVariancesForProduct } from "@/lib/productVarianceRequests";
 import { Product } from "@/models/Product";
+import { ProductVariance } from "@/models/ProductVariance";
 import { selectUser } from "@/store/userSlice";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -13,6 +15,7 @@ import { useSelector } from "react-redux";
 export default function ProductPage({ params }: { params: { id: number}}) {
 
     const [product, setProduct] = useState<Product>();
+    const [variances, setVariances] = useState<ProductVariance[]>([]);
     const [error, setError] = useState<string>('');
 
     const user = useSelector(selectUser);
@@ -43,20 +46,34 @@ export default function ProductPage({ params }: { params: { id: number}}) {
                 setSelectedAttributeValues(res.attributesAndAttributeValues.map(elem => ({attribute: elem.name, value: ''})))
             })
             .catch((err: Error) => setError(err.message));
+        
+        getVariancesForProduct(params.id) 
+            .then(res => setVariances(res))
+            .catch((err: Error) => setError(err.message))
     }, [])
 
-    const findCartEntryInCart = (productId: number) : number => {
-        cart?.cartEntries.forEach(cartEntry => {
-            if(cartEntry.product.id === productId) {
-                return cartEntry.id
-            }
-        })
+    // const findCartEntryInCart = (productId: number) : number => {
+    //     cart?.cartEntries.forEach(cartEntry => {
+    //         if(cartEntry.product.id === productId) {
+    //             return cartEntry.id
+    //         }
+    //     })
 
-        return -1
-    }
+    //     return -1
+    // }
 
     const canOrder = () : boolean => {
         return selectedAttributeValues.every(elem => elem.value !== '')
+    }
+
+    const findVarianceByAttributes = () : ProductVariance | null => {
+        for(let variance of variances) {
+            if(variance.attributesAndValues.every(elem => selectedAttributeValues.some(selectedElem => selectedElem.attribute === elem.name && selectedElem.value === elem.value))) {
+                return variance
+            }
+        }
+
+        return null
     }
 
     const addToCartToggle = (productId: number) => {
@@ -65,11 +82,18 @@ export default function ProductPage({ params }: { params: { id: number}}) {
             return
         }
 
-        let cartEntryId = findCartEntryInCart(productId)
+        //let cartEntryId = findCartEntryInCart(productId)
 
-        if(canOrder() && cartEntryId === -1) {
-            addProductToCart(productId, cart!.id)
+        // if(canOrder() && cartEntryId === -1) {
+        //     addProductToCart(productId, cart!.id)
+        //         .then(res => setCart(res))
+        // }
+
+        if(canOrder()) {
+            const variance = findVarianceByAttributes()
+            addProductToCart(variance!.id, cart!.id)
                 .then(res => setCart(res))
+                .catch((err: Error) => setNotifierState({message: err.message}))
         }
     }
 

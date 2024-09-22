@@ -1,8 +1,8 @@
-import { Product } from "./Product";
+import { ProductVariance } from "./ProductVariance";
 
 export interface CartEntry {
     id: number,
-    product: Product,
+    productVariance: ProductVariance,
     quantity: number,
     pricePerPiece: number,
     totalPrice: number
