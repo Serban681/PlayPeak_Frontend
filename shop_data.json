@@ -1,0 +1,123 @@
+// Addresses
+
+{
+    "streetLine": "23rd Main Street",
+    "postalCode": "000012",
+    "city": "New York City",
+    "county": "New York",
+    "country": "USA"
+}
+
+{
+    "streetLine": "1st Brown Street",
+    "postalCode": "000306",
+    "city": "Kansas City",
+    "county": "Kansas",
+    "country": "USA"
+}
+
+{
+    "streetLine": "8th Maple Street",
+    "postalCode": "030401",
+    "city": "Baltimore",
+    "county": "Maryland",
+    "country": "USA"
+}
+
+// Users
+
+{
+    "firstName": "John",
+    "lastName": "Brown",
+    "email": "john.brown@gmail.com",
+    "phoneNumber": "+2084018434",
+    "password": "John123",
+    "defaultDeliveryAddressId": "2",
+    "defaultBillingAddressId": "2"
+}
+
+{
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane.doe@gmail.com",
+    "phoneNumber": "+3409230443",
+    "password": "Jane123",
+    "defaultDeliveryAddressId": "2",
+    "defaultBillingAddressId": "3"
+}
+
+{
+    "firstName": "Sam",
+    "lastName": "Smith",
+    "email": "sam.smith@gmail.com",
+    "phoneNumber": "+2082391864",
+    "password": "Sam123",
+    "defaultDeliveryAddress": {
+        "streetLine": "Miau Street",
+        "postalCode": 28759,
+        "city": "la",
+        "county": "Cali",
+        "country": "USA"
+    },
+    "defaultBillingAddress": {
+        "streetLine": "Miau Street",
+        "postalCode": 28759,
+        "city": "la",
+        "county": "Cali",
+        "country": "USA"
+    }
+}
+
+{
+    "firstName": "Jil",
+    "lastName": "Jane",
+    "email": "jil.jane@gmail.com",
+    "phoneNumber": "+0723894920",
+    "password": "Jil123",
+    "defaultDeliveryAddress": {
+        "streetLine": "Grove Street 23rd",
+        "postalCode": "028759",
+        "city": "Compton",
+        "county": "California",
+        "country": "USA"
+    },
+    "defaultBillingAddress": {
+        "streetLine": "Grove Street 23rd",
+        "postalCode": "028759",
+        "city": "Compton",
+        "county": "California",
+        "country": "USA"
+    }
+}
+
+
+{
+    "name": "C00L Blouse Xd",
+    "photoUrl": "https://i.etsystatic.com/22819560/r/il/a5f6b8/3963743381/il_1588xN.3963743381_ak2s.jpg",
+    "price": "20.00",
+    "category": "Shirt",
+    "attributesAndAttributeValues": [
+        {
+            "name": "color",
+            "values": ["black", "blue", "green"]
+        },
+        {
+            "name": "size",
+            "values": ["L", "XL", "XXL"]
+        }
+    ]
+}
+
+{
+    "name": "Lulz Bag",
+    "price": "15.00",
+    "category": "Bag",
+    "photoUrl": "https://www.charleskeith.co.uk/dw/image/v2/BCWJ_PRD/on/demandware.static/-/Sites-ck-products/default/dwbe20beb1/images/hi-res/2021-L3-CK2-30781483-51-1.jpg?sw=756&sh=1008",
+    "attributesAndAttributeValues": [
+        {
+            "name": "color",
+            "values": ["black", "brown"]
+        }
+    ]
+}
+
