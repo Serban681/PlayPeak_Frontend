@@ -46,13 +46,13 @@ export async function addUser(user: User) : Promise<User> {
     return response.json();
 }
 
-export async function updateUser(address: User) : Promise<User> {
+export async function updateUser(user: User) : Promise<User> {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(address)
+        body: JSON.stringify(user)
     });
 
     return response.json();

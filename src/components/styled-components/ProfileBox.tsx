@@ -14,6 +14,7 @@ export default function ProfileBox({handleCloseBtnClick}: {handleCloseBtnClick: 
 
     const signOut = () => {
         dispatch(setUser({id: -1, email: '', firstName: '', lastName: '', role: ''}));
+        router.push('/');
     }
 
     return (

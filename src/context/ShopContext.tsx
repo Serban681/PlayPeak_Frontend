@@ -5,6 +5,7 @@ import { createContext, useState } from "react";
 
 interface NotifierContextState {
     message: string;
+    isError?: boolean;
 }
 
 interface ShopContextProps {
@@ -20,7 +21,8 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
     const [cart, setCart] = useState<Cart | null>(null)
 
     const [notifierState, setNotifierState] = useState<NotifierContextState>({
-        message: ''
+        message: '',
+        isError: true
     })
 
     return (

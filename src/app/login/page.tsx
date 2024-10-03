@@ -22,10 +22,10 @@ export default function Page() {
     // const defaultDeliveryAddress =  useAppSelector(selectDefaultDeliveryAddress);
 
 
-    const { register, handleSubmit, control, formState, getValues } = useForm<UserCredentials>({
+    const { handleSubmit, control, formState } = useForm<UserCredentials>({
       defaultValues: {
-        email: "",
-        password: ""
+        email: "jil.jane@gmail.com",
+        password: "Jil123"
       },
       mode: "all",
     });
