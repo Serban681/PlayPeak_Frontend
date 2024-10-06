@@ -24,7 +24,7 @@ export default function ProfileBox({handleCloseBtnClick}: {handleCloseBtnClick: 
             </div>
             <div className="ml-4 mt-4">
                 <div className="flex">
-                    <Avatar />
+                    <Avatar email={user.email} />
                     <div className="ml-3">
                         <h5 className="font-medium">{user.firstName} {user.lastName}</h5>
                         <h5 className="text-xs">{user.email}</h5>

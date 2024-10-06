@@ -46,7 +46,6 @@ export default function Page() {
     });
 
     useEffect(() => {
-        console.log(user)
         setUserDetails({
             firstName: user.firstName,
             lastName: user.lastName,
@@ -80,6 +79,11 @@ export default function Page() {
     }
 
     const updateProfile = () => {
+        console.log({
+            defaultDeliveryAddress: { ...deliveryAddress },
+            defaultBillingAddress: { ...billingAddress }
+        })
+
         updateUser({
             id: user.id!,
             firstName: userDetails.firstName,

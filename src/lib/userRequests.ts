@@ -18,6 +18,30 @@ export async function login(email: string, password: string) : Promise<Response>
     return response.json();
 }
 
+export async function resetPassword(id: number, password: string) : Promise<void> {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users/reset-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: id, newPassword: password })
+    });
+
+    if (!response.ok) {
+        return Promise.reject(await response.json());
+    }
+}
+
+export async function sendResetPasswordMail(email: string) : Promise<void> {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/users/reset-pass-email?email=${email}`, {
+        method: 'POST'
+    });
+
+    if (!response.ok) {
+        return Promise.reject(await response.json());
+    }
+}
+
 export async function getAllUsers() : Promise<User[]> {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users');
 

@@ -51,7 +51,7 @@ export default function Header() {
                     }
                     {user.id !== - 1 ? 
                         <>
-                            <Avatar handleClick={() => setIsProfileBoxOpened(true)} /> 
+                            <Avatar customStyles='mt-1' email={user.email} handleClick={() => setIsProfileBoxOpened(true)} /> 
                             {isProfileBoxOpened && <ProfileBox handleCloseBtnClick={() => setIsProfileBoxOpened(false)} />}
                         </>
                         :

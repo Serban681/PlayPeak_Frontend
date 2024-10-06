@@ -22,6 +22,7 @@ const config: Config = {
         'black': '#313131',
         'verylight-gray': '#f0f0f0',
         'light-gray': '#D0D0D0',
+        'gray': '#828282',
         'dark-gray': '#585858',
         'turqoise': '#7bccce',
         'green': '#57c24f',
