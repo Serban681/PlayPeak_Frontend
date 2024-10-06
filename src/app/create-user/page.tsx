@@ -20,7 +20,7 @@ export default function Page() {
 
     const dispatch = useAppDispatch();
 
-    const { setNotifierState } = useContext(ShopContext)!;
+    const {notifierState, setNotifierState } = useContext(ShopContext)!;
 
     const { register, handleSubmit, control, formState, getValues, setValue } = useForm<{
         firstName: string,
@@ -85,7 +85,7 @@ export default function Page() {
         addUser(data)
             .then(async res => await dispatch(setUser(res)))
             .then(() => router.push('/'))
-            .catch(async err => setNotifierState({ message: err }));
+            .catch(async err => setNotifierState({ ...notifierState, message: err }));
     });
 
     const getSectionTitleInfo = () => {

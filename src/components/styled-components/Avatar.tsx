@@ -1,5 +1,11 @@
-export default function Avatar({customStyles, handleClick}: {customStyles?: string, handleClick?: () => void}) {
+import Avvvatars from "avvvatars-react";
+
+export default function Avatar({customStyles, handleClick, email}: {customStyles?: string, handleClick?: () => void, email: string}) {
     return (
-        <div onClick={handleClick} className={`cursor-pointer w-10 h-10 bg-pink rounded-full ${customStyles}`} />
+        <div onClick={handleClick} className={`cursor-pointer ${customStyles}`}>
+            <Avvvatars size={36} value={email} style='shape' />
+        </div>
+        
+        // <div onClick={handleClick}  />
     )
 }

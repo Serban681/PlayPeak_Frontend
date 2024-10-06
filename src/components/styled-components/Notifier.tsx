@@ -15,14 +15,14 @@ export default function Notifier() {
                 setShowState(false)
             }, 2000)
             setTimeout(() => {
-                setNotifierState({message: ''})
-            }, 1000)
+                setNotifierState({ ...notifierState, message: ''})
+            }, 3000)
         }
     }, [notifierState])
 
     return (
-        <div className={`${show ? 'top-5' : '-top-40'} transition-all duration-300 ease-in-out z-40 bg-red-400 absolute left-1/2 translate-x-[-50%] text-white font-medium text-xl p-3 rounded-xl max-w-96 text-center`}>
-            You cannot add a product to cart without logging in!
+        <div className={`${show ? 'top-5' : '-top-40'} transition-all duration-300 ease-in-out z-40 ${notifierState.isError ? 'bg-red-400' : 'bg-green'}  absolute left-1/2 translate-x-[-50%] text-white font-medium text-xl p-3 rounded-xl max-w-96 text-center`}>
+            {notifierState.message}
         </div>
     )
 }

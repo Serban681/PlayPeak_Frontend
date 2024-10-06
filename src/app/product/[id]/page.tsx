@@ -20,7 +20,7 @@ export default function ProductPage({ params }: { params: { id: number}}) {
 
     const user = useSelector(selectUser);
 
-    const { cart, setCart, setNotifierState } = useContext(ShopContext)!;
+    const { cart, setCart, notifierState, setNotifierState } = useContext(ShopContext)!;
 
     const [selectedAttributeValues, setSelectedAttributeValues] = useState<{
         attribute: string,
@@ -78,7 +78,7 @@ export default function ProductPage({ params }: { params: { id: number}}) {
 
     const addToCartToggle = (productId: number) => {
         if(user.id === -1) {
-            setNotifierState({message: 'You need to be logged in to order products'})
+            setNotifierState({ ...notifierState, message: 'You need to be logged in to order products'})
             return
         }
 
@@ -93,7 +93,7 @@ export default function ProductPage({ params }: { params: { id: number}}) {
             const variance = findVarianceByAttributes()
             addProductToCart(variance!.id, cart!.id)
                 .then(res => setCart(res))
-                .catch((err: Error) => setNotifierState({message: err.message}))
+                .catch((err: Error) => setNotifierState({ ...notifierState, message: err.message}))
         }
     }
 

@@ -20,9 +20,12 @@ const config: Config = {
       colors: {
         'pink': '#F8B8ED',
         'black': '#313131',
+        'verylight-gray': '#f0f0f0',
         'light-gray': '#D0D0D0',
+        'gray': '#828282',
         'dark-gray': '#585858',
-        'turqoise': '#79EBD1'
+        'turqoise': '#7bccce',
+        'green': '#57c24f',
       },
       boxShadow: {
         'big': '0.5rem 0.5rem 0 0 black'

@@ -10,6 +10,18 @@ export async function getCartByUserId(userId: number) : Promise<Cart> {
     return response.json();
 }
 
+export async function removeCartFromUser(userId: number) {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/cart/remove-user/${userId}`, {
+        method: 'PUT',
+    })       
+    
+    if(!response.ok) {
+        return Promise.reject(await response.json());
+    }
+
+    return response;
+}
+
 export async function addProductToCart(productVarianceId: number, cartId: number) {
     
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/cart/add-product?productVarianceId=${productVarianceId}&cartId=${cartId}`, {
