@@ -2,6 +2,7 @@
 
 import { TagSystem } from "@/components/styled-components/Buttons";
 import { CustomDropdown } from "@/components/styled-components/CustomDropdown";
+import Hero from "@/components/styled-components/Hero";
 import ProductCard from "@/components/styled-components/ProductCard";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { getKeyByValue, ProductSortMethods } from "@/enums/ProductsSortMethods";
@@ -44,6 +45,7 @@ export default function Home() {
 
   return (
     <>
+      <Hero />
       <div className="sm:mt-10">
         <TagSystem 
           tags={categories} 
@@ -52,8 +54,6 @@ export default function Home() {
           customStyles="inline-block sm:w-3/5 md:w-8/12 lg:w-9/12 3xl:w-11/12" />
 
         <CustomDropdown customStyles="sm:float-right" label={'Sort by'} name={'sort_dropdown'} options={Object.values(ProductSortMethods)} selected={sortingMethod} handleSelect={(name, selected) => setSortingMethod(selected)} />
-        
-        
         
         {categorisedProducts.length > 0 ? 
           categorisedProducts.map((elem, index) => (

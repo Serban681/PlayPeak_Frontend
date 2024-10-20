@@ -90,34 +90,192 @@
     }
 }
 
-// Products 
-{
-    "name": "C00L Blouse Xd",
-    "photoUrl": "https://i.etsystatic.com/22819560/r/il/a5f6b8/3963743381/il_1588xN.3963743381_ak2s.jpg",
-    "price": "20.00",
-    "category": "Shirt",
-    "attributesAndAttributeValues": [
-        {
-            "name": "color",
-            "values": ["black", "blue", "green"]
-        },
-        {
-            "name": "size",
-            "values": ["L", "XL", "XXL"]
-        }
-    ]
-}
 
-{
-    "name": "Lulz Bag",
-    "price": "15.00",
-    "category": "Bag",
-    "photoUrl": "https://www.charleskeith.co.uk/dw/image/v2/BCWJ_PRD/on/demandware.static/-/Sites-ck-products/default/dwbe20beb1/images/hi-res/2021-L3-CK2-30781483-51-1.jpg?sw=756&sh=1008",
-    "attributesAndAttributeValues": [
-        {
-            "name": "color",
-            "values": ["black", "brown"]
-        }
-    ]
-}
+// New redesigned products
 
+[
+    {
+        "name": "FuryStrike Pro",
+        "price": "19.99",
+        "category": "Boxing",
+        "photoUrl": "https://contents.mediadecathlon.com/p2217631/k$4d26ae93ce608ca77b00333881293c07/sq/manusi-box-500-negru.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "size",
+                "values": ["8 OZ", "10 OZ", "12 OZ", "14 OZ", "16 OZ"]
+            }
+        ]
+    },
+    {
+        "name": "FlexWrap Elite",
+        "price": "7.99",
+        "category": "Boxing",
+        "photoUrl": "https://contents.mediadecathlon.com/m11915524/k$3b5c0d3334d9942828cb6cd3f3500a30/sq/fase-de-box-35-metri-leone-portocalii.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "color",
+                "values": ["orange", "black"]
+            }
+        ]
+    },
+    {
+        "name": "HoopMaster X",
+        "price": "12.99",
+        "category": "Basket",
+        "photoUrl": "https://contents.mediadecathlon.com/p2275515/k$bc67f13b1e6bed8f3cbd1b88a8f878f6/sq/minge-baschet-wilson-nba-signature-series-marimea-7.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "color",
+                "values": ["orange", "green"]
+            }
+        ]
+    },
+    {
+        "name": "TrailBlaze Pro",
+        "price": "349.99",
+        "category": "Cycling",
+        "photoUrl": "https://contents.mediadecathlon.com/p2580421/k$2513537942bbc3e6ba29241cfd176618/sq/bicicleta-mtb-explore-500-29-rosu.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "color",
+                "values": ["red", "black"]
+            },
+            {
+                "name": "size",
+                "values": ["S", "M", "L", "XL"]
+            }
+        ]
+    },
+    {
+        "name": "UrbanGlide One",
+        "price": "299.99",
+        "category": "Cycling",
+        "photoUrl": "https://contents.mediadecathlon.com/p1862101/k$2afed5a14930d20b348c05604f59762c/sq/bicicleta-de-oras-elops-540-cadru-jos-albastru.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "size",
+                "values": ["S", "M", "L"]
+            }
+        ]
+    },
+    {
+        "name": "BullseyeForce",
+        "price": "19.99",
+        "category": "Darts",
+        "photoUrl": "https://contents.mediadecathlon.com/p1538168/k$ecf74a329b08585e73dc2b1a28b0e490/sq/tinta-clasica-darts-club-500-pentru-sageti-din-otel.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "color",
+                "values": ["red", "white"]
+            }
+        ]
+    },
+    {
+        "name": "FrostRider Pro",
+        "price": "64.99",
+        "category": "Snowboarding",
+        "photoUrl": "https://contents.mediadecathlon.com/m10471402/k$e0fc2f849547d64240d79b66bf481972/sq/placa-snowboard-unisex-arbor-draft-2021.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "style",
+                "values": ["urban", "tech"]
+            }
+        ]
+    },
+    {
+        "name": "ArrowForce Elite",
+        "price": "39.99",
+        "category": "Archery",
+        "photoUrl": "https://contents.mediadecathlon.com/p2569206/k$b39757ddf29e09169cc91fe54f5ba3c0/sq/arc-tir-cu-arcul-club-500-stangaci.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "handle",
+                "values": ["wood", "plastic"]
+            }
+        ]
+    },
+    {
+        "name": "GlideFury Sledge",
+        "price": "27.99",
+        "category": "Sledding",
+        "photoUrl": "https://contents.mediadecathlon.com/m15932244/k$dfda50bc06dd8ff4e06f6ef352a75bd8/sq/sania-din-lemn-humbaka-de-la-vt-sport-davos-100.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "color",
+                "values": ["wooden", "black"]
+            }
+        ]
+    },
+    {
+        "name": "PowerBand X",
+        "price": "15.99",
+        "category": "Fitness",
+        "photoUrl": "https://contents.mediadecathlon.com/p2719488/k$81a90ec3212d627d138e78c0f0b87790/sq/banda-elastica-bodybuilding-training-band-15-kg-verde.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "length",
+                "values": ["50cm", "100cm"]
+            }
+        ]
+    },
+    {
+        "name": "HomeRun Force",
+        "price": "29.99",
+        "category": "Baseball",
+        "photoUrl": "https://contents.mediadecathlon.com/p2362531/k$e2d854d1c9cc7a69b9d5deb0b495ea31/sq/set-de-baseball-barnett-copii.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "size",
+                "values": ["kid", "adult"]
+            }
+        ]
+    },
+    {
+        "name": "PrecisionDrive",
+        "price": "239.99",
+        "category": "Golf",
+        "photoUrl": "https://contents.mediadecathlon.com/p2490995/k$bc703985acdc6d0052277c41b7e21500/sq/demi-set-golf-inesis-100-6-crose-stangaci-grafit.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "size",
+                "values": ["3 clubs", "5 clubs", "7 clubs"]
+            }
+        ]
+    },
+    {
+        "name": "SkyDome",
+        "price": "74.99",
+        "category": "Camping",
+        "photoUrl": "https://contents.mediadecathlon.com/p2579477/k$af60e99c66019cc3bec950f8cc32ca43/sq/cort-camping-mh100-3-persoane.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "size",
+                "values": ["small", "medium", "large"]
+            }
+        ]
+    },
+    {
+        "name": "BagStrike",
+        "price": "124.99",
+        "category": "Yard Games",
+        "photoUrl": "https://contents.mediadecathlon.com/p2176369/k$53902efbfb438f7943d68842672682bc/sq/joc-cornhole-compact.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "standard",
+                "values": ["standard"]
+            }
+        ]
+    },
+    {
+        "name": "StreetGlide",
+        "price": "24.99",
+        "category": "Skateboarding",
+        "photoUrl": "https://contents.mediadecathlon.com/p2225109/k$2002fac2fd6a7020be71b4f3103a2547/sq/skateboard-complet-cp500-fury-marimea-825.jpg?format=auto&f=1800x1800",
+        "attributesAndAttributeValues": [
+            {
+                "name": "standard",
+                "values": ["standard"]
+            }
+        ]
+    }
+]
