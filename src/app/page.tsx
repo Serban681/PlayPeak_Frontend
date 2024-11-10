@@ -47,14 +47,15 @@ export default function Home() {
 
   return (
     <>
-      <Canvas camera={ {
+      <Hero />
+      {/* <Canvas camera={ {
             fov: 45,
             near: 0.1,
             far: 200,
             position: [ 20, 20, 20 ]
         } }>
-        <HeroItems />
-      </Canvas>
+        <Hero />
+      </Canvas> */}
       <div className="sm:mt-10">
         <TagSystem 
           tags={categories} 
