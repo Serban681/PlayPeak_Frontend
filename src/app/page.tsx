@@ -1,5 +1,6 @@
 'use client'
 
+import HeroItems from "@/components/3D-scene/HeroItems";
 import { TagSystem } from "@/components/styled-components/Buttons";
 import { CustomDropdown } from "@/components/styled-components/CustomDropdown";
 import Hero from "@/components/styled-components/Hero";
@@ -10,6 +11,7 @@ import { getAllCategories } from "@/lib/categoryRequests";
 import { getAllProducts } from "@/lib/productRequests";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
+import { Canvas } from "@react-three/fiber";
 import { useEffect, useState } from "react";
 import { set } from "react-hook-form";
 
@@ -45,7 +47,14 @@ export default function Home() {
 
   return (
     <>
-      <Hero />
+      <Canvas camera={ {
+            fov: 45,
+            near: 0.1,
+            far: 200,
+            position: [ 20, 20, 20 ]
+        } }>
+        <HeroItems />
+      </Canvas>
       <div className="sm:mt-10">
         <TagSystem 
           tags={categories} 
