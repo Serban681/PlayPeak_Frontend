@@ -38,7 +38,7 @@ export default function RootLayout({
           <ShopProvider>
             <Notifier />
             <Header />
-            <div className="mx-12 lg:mx-24 mt-7 min-h-screen">
+            <div className="mx-12 lg:mx-24 xl:mx-40 mt-7 min-h-screen">
                 {children}
             </div>
             <Footer />

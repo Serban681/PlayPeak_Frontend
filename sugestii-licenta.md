@@ -1,11 +1,9 @@
 # Sugestions
 
-??? 3D models - header with title - any bonus points
-
 # To do
 
-[ ] put website on server
-
+[ ] put website on server (not localhost)
+[ ] 3D models - hero section
 # Done 
 
 [x] make website personalised
