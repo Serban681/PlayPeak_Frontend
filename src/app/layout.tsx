@@ -2,7 +2,6 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import StoreProvider from "./StoreProvider";
 import { Josefin_Sans, Righteous } from "next/font/google"
 import Header from "@/components/styled-components/Header";
 import { Footer } from "@/components/styled-components/Footer";
@@ -34,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`m-0 font-main font-light ${josefin.variable} ${righteous.variable}`}>
-        <StoreProvider>
+        {/* <StoreProvider> */}
           <ShopProvider>
             <Notifier />
             <Header />
@@ -43,7 +42,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </ShopProvider>
-        </StoreProvider>
+        {/* </StoreProvider> */}
       </body>
     </html>
   );

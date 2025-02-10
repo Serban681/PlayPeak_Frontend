@@ -5,18 +5,20 @@ import { BigBtn, SmallBtn } from "@/components/styled-components/Buttons";
 import OrderCartEntry from "@/components/styled-components/OrderCartEntry";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { ShopContext } from "@/context/ShopContext";
+import useGetUser from "@/hooks/useGetUser";
 import { getCartByUserId, removeCartFromUser } from "@/lib/cartRequests";
 import { createOrder } from "@/lib/orderRequests";
 import { OrderRequest } from "@/models/OrderRequest";
-import { selectUser } from "@/store/userSlice";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 export default function CheckoutPage() {
+    const { user } = useGetUser();
+
     const router = useRouter();
 
-    const user = useSelector(selectUser);
+    const [isOrdering, setIsOrdering] = useState(false);
+
     const { cart, setCart } = useContext(ShopContext)!;
 
     const [modifyDeliveryAddress, setModifyDeliveryAddress] = useState(false);
@@ -54,9 +56,10 @@ export default function CheckoutPage() {
     }
 
     useEffect(() => {
-        setDeliveryAddress(user.defaultDeliveryAddress);
-        setBillingAddress(user.defaultBillingAddress);
-    }, []);
+        if(user)
+            setDeliveryAddress(user.defaultDeliveryAddress);
+            setBillingAddress(user.defaultBillingAddress);
+    }, [user]);
 
     const makeOrder = async () => {
         const requestObject: OrderRequest = {
@@ -66,6 +69,8 @@ export default function CheckoutPage() {
             deliveryAddress: deliveryAddress,
             billingAddress: billingAddress
         }
+
+        setIsOrdering(true);
 
         await createOrder(requestObject)
             .then(async res => {
@@ -123,7 +128,7 @@ export default function CheckoutPage() {
                     </select>
                 </div>
 
-                <BigBtn handleClick={() => makeOrder()} customStyles="mt-8">Order</BigBtn>
+                <BigBtn active={!isOrdering} handleClick={() => makeOrder()} customStyles="mt-8">{isOrdering ? 'Processing...' : 'Order'}</BigBtn>
             </div>
         </div>
     )

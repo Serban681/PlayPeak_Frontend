@@ -1,15 +1,14 @@
 'use client' 
 
-import { useAppDispatch } from "@/lib/hooks";
 import { login } from "@/lib/userRequests";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { setUser } from "@/store/userSlice";
 import { BigBtn } from "@/components/styled-components/Buttons";
 import { TextInput } from "@/components/styled-components/FormInput";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { use, useEffect } from "react";
 import Link from "next/link";
+import useGetUser from "@/hooks/useGetUser";
 
 type UserCredentials = {
     email: string;
@@ -17,9 +16,8 @@ type UserCredentials = {
 }
 
 export default function Page() {
+    const { user, setUser } = useGetUser();
     const router = useRouter();
-    const dispatch = useAppDispatch();
-    // const defaultDeliveryAddress =  useAppSelector(selectDefaultDeliveryAddress);
 
 
     const { handleSubmit, control, formState } = useForm<UserCredentials>({
@@ -32,8 +30,8 @@ export default function Page() {
 
     const onSubmit = handleSubmit(async (data) => {      
       login(data.email, data.password)
-        .then(async res => await dispatch(setUser(res)))
-        .then(() => router.push('/'))
+        .then(res => setUser(res))
+        .then(() => window.location.href = '/')
         .catch(async err => await console.log(222, err))       
     });
 

@@ -2,7 +2,7 @@
 
 import { User } from "@/models/User";
 
-export async function login(email: string, password: string) : Promise<Response> {
+export async function login(email: string, password: string) : Promise<any> {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users/login', {
         method: 'POST',
         headers: {

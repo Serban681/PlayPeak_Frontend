@@ -4,18 +4,14 @@ import { RawTextInput } from "@/components/form-hook-lib-inputs/TextInput"
 import { BigBtn, SmallBtn } from "@/components/styled-components/Buttons"
 import { SectionTitle } from "@/components/styled-components/SectionTitle"
 import { ShopContext } from "@/context/ShopContext";
-import { useAppDispatch } from "@/lib/hooks";
+import useGetUser from "@/hooks/useGetUser";
 import { updateUser } from "@/lib/userRequests";
-import { selectUser, setUser } from "@/store/userSlice";
-import { Address } from "cluster";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 export default function Page() {
     const {setNotifierState } = useContext(ShopContext)!;
-    const user = useSelector(selectUser);
-    const dispatch = useAppDispatch();
+    const { user, setUser } = useGetUser();
 
     const [modifyProfile, setModifyProfile] = useState(false);
     const [modifyDeliveryAddress, setModifyDeliveryAddress] = useState(false);
@@ -26,7 +22,9 @@ export default function Page() {
         lastName: '',
         email: '',
         phoneNumber: '',
-        password: ''
+        password: '',
+        age: '0', 
+        gender: 'NOT_MENTIONED'
     });
 
     const [deliveryAddress, setDeliveryAddress] = useState({
@@ -46,16 +44,20 @@ export default function Page() {
     });
 
     useEffect(() => {
-        setUserDetails({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            password: user.password
-        });
-        setDeliveryAddress(user.defaultDeliveryAddress);
-        setBillingAddress(user.defaultBillingAddress);
-    }, []);
+        if(user) {
+            setUserDetails({
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                password: user.password,
+                age: user.age,
+                gender: user.gender
+            });
+            setDeliveryAddress(user.defaultDeliveryAddress);
+            setBillingAddress(user.defaultBillingAddress);   
+        }
+    }, [user]);
 
     const handleUserDetailsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserDetails({
@@ -91,9 +93,11 @@ export default function Page() {
             email: userDetails.email,
             phoneNumber: userDetails.phoneNumber,
             password: userDetails.password,
+            gender: userDetails.gender,
+            age: userDetails.age,
             defaultDeliveryAddress: { ...deliveryAddress },
             defaultBillingAddress: { ...billingAddress }
-        }).then(res => {dispatch(setUser(res))})
+        }).then(res => {setUser(res)})
             .then(() => setNotifierState({ isError: false, message: 'Profile updated successfully' }))
             .catch(err => setNotifierState({ isError: true, message: 'Profile update failed' }));
     }
