@@ -13,7 +13,6 @@ import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 import { Canvas } from "@react-three/fiber";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 export default function Home() {
   const [categories, setCategories] = useState<string[]>([]);

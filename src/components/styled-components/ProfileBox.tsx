@@ -1,20 +1,17 @@
-import { useSelector } from "react-redux";
 import Avatar from "./Avatar";
-import { selectUser, setUser } from "@/store/userSlice";
 import { BigBtn, SmallBtn } from "./Buttons";
 import { useRouter } from "next/navigation";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useAppDispatch } from "@/lib/hooks";
+import useGetUser from "@/hooks/useGetUser";
 
 export default function ProfileBox({handleCloseBtnClick}: {handleCloseBtnClick: () => void}) {
-    const user = useSelector(selectUser);
+    const { user, setEmptyUser } = useGetUser();
     const router = useRouter();
 
-    const dispatch = useAppDispatch();
-
     const signOut = () => {
-        dispatch(setUser({id: -1, email: '', firstName: '', lastName: '', role: ''}));
-        router.push('/');
+        setEmptyUser();
+        handleCloseBtnClick();
+        window.location.href = '/';
     }
 
     return (
@@ -24,7 +21,7 @@ export default function ProfileBox({handleCloseBtnClick}: {handleCloseBtnClick: 
             </div>
             <div className="ml-4 mt-4">
                 <div className="flex">
-                    <Avatar email={user.email} />
+                    <Avatar user={user} />
                     <div className="ml-3">
                         <h5 className="font-medium">{user.firstName} {user.lastName}</h5>
                         <h5 className="text-xs">{user.email}</h5>

@@ -1,28 +1,29 @@
 'use client'
 
 import { BigBtn } from '@/components/styled-components/Buttons';
+import useGetUser from '@/hooks/useGetUser';
 import { sendResetPasswordMail } from '@/lib/userRequests';
-import { selectUser } from '@/store/userSlice';
 import { EnvelopeIcon as EnveloperIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 export default function Page() {
     const router = useRouter();
 
-    const user = useSelector(selectUser);
+    const { user } = useGetUser()
 
     const [emailSent, setEmailSent] = useState(false);
 
     useEffect(() => {
-        if(user.id === -1) router.push('/')
+        if(user) {
+            if(user.id === -1) router.push('/')
 
-        if(emailSent) return;
-
-        sendResetPasswordMail(user.email)
-        .then(() => setEmailSent(true))
-    }, [])
+            if(emailSent) return;
+    
+            sendResetPasswordMail(user.email)
+            .then(() => setEmailSent(true))   
+        }
+    }, [user])
 
     return (
         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>

@@ -1,13 +1,12 @@
 'use client'
 
 import { BigBtn } from "@/components/styled-components/Buttons";
-import { TextInput } from "@/components/styled-components/FormInput";
+import { RadioInput, TextInput } from "@/components/styled-components/FormInput";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { ShopContext } from "@/context/ShopContext";
-import { useAppDispatch } from "@/lib/hooks";
+import useGetUser from "@/hooks/useGetUser";
 import { addUser } from "@/lib/userRequests";
 import { Address } from "@/models/Address";
-import { setUser } from "@/store/userSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -18,32 +17,36 @@ export default function Page() {
 
     const [step, setStep] = useState(0);
 
-    const dispatch = useAppDispatch();
-
     const {notifierState, setNotifierState } = useContext(ShopContext)!;
 
-    const { register, handleSubmit, control, formState, getValues, setValue } = useForm<{
+    const { setUser } = useGetUser();
+
+    const { handleSubmit, control, formState, getValues, setValue } = useForm<{
         firstName: string,
         lastName: string,
         email: string,
         phoneNumber: string,
         password: string,
+        age: string,
+        gender: string,
         passwordConfirm: string,
         defaultDeliveryAddress: Address
         defaultBillingAddress: Address
     }>({
         defaultValues: {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            password: '',
-            passwordConfirm: '',
+            firstName: 'Bill',
+            lastName: 'Ackman',
+            email: 'bill@gmail.com',
+            phoneNumber: '072819232',
+            password: 'Bill123',
+            passwordConfirm: 'Bill123',
+            age: '45',
+            gender: 'MALE', 
             defaultDeliveryAddress: {
-                streetLine: '',
-                postalCode: '',
-                city: '',
-                county: '',
+                streetLine: 'Main Street',
+                postalCode: '083729',
+                city: 'NY',
+                county: 'NY',
                 country: ''
             },
             defaultBillingAddress: {
@@ -54,7 +57,7 @@ export default function Page() {
                 country: ''
             }
         },
-        mode: 'all'
+        mode: 'onChange'
     });
 
     const [useAddressForBilling, setUseAddressForBilling] = useState(false);
@@ -75,16 +78,16 @@ export default function Page() {
         }
     }
 
-    useEffect(() => {
-        if(useAddressForBilling) {
-            setValue("defaultBillingAddress", getValues("defaultDeliveryAddress"));
-        }
-    }, [getValues("defaultDeliveryAddress")])
+    // useEffect(() => {
+    //     if(useAddressForBilling) {
+    //         setValue("defaultBillingAddress", getValues("defaultDeliveryAddress"));
+    //     }
+    // }, [getValues("defaultDeliveryAddress")]);
 
     const onSubmit = handleSubmit(async (data) => {
         addUser(data)
-            .then(async res => await dispatch(setUser(res)))
-            .then(() => router.push('/'))
+            .then(async res => await setUser(res))
+            .then(() => window.location.href = '/')
             .catch(async err => setNotifierState({ ...notifierState, message: err }));
     });
 
@@ -114,6 +117,8 @@ export default function Page() {
                                 <TextInput label="Phone number" control={control} name="phoneNumber" rules={{ required: true }} />
                                 <TextInput label="Password" control={control} name="password" rules={{ required: true }} />
                                 <TextInput label="Confirm password" control={control} name="passwordConfirm" rules={{ required: true }} />
+                                <RadioInput label="Gender" options={["Male", "Female", "Prefer not to say"]} values={["MALE", "FEMALE", "NOT_MENTIONED"]} currentValue={getValues("gender")} setCurrentValue={(e) => setValue("gender", e.target.value)} />
+                                <TextInput label="Age" control={control} name="age" rules={{ required: true }} />
 
                                 <Link className="block mt-[-0.5rem] mb-2 font-medium underline" href={'/login'}>Already have an account? Log in here!</Link>
                                 <BigBtn handleClick={goToNextStep}>Next</BigBtn>

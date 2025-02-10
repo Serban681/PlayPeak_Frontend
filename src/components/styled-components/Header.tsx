@@ -6,28 +6,26 @@ import { BigBtn } from './Buttons';
 import { ShoppingCartIcon as ShoppingCartOutline } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartSolid } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { selectUser } from '@/store/userSlice';
 import Avatar from './Avatar';
 import { getCartByUserId } from '@/lib/cartRequests';
 import { ShopContext } from '@/context/ShopContext';
 import ProfileBox from './ProfileBox';
+import useGetUser from '@/hooks/useGetUser';
 
 export default function Header() {
     const router = useRouter();
 
-    const user = useSelector(selectUser);
+    const { user } = useGetUser();
 
     const context = useContext(ShopContext);
     const { cart, setCart } = context!;
     const [isProfileBoxOpened, setIsProfileBoxOpened] = useState(false);
 
     useEffect(() => {
-        if(user.id !== -1)
+        if(!!user && user.id !== -1)
             getCartByUserId(user.id!)
                 .then(res => setCart(res))
                 .catch(err => console.log(err))
-            
     }, [user])
 
     const getTotalItems = () => {
@@ -49,9 +47,9 @@ export default function Header() {
                             </div>}
                         </div>
                     }
-                    {user.id !== - 1 ? 
+                    {!!user && user.id !== - 1 ? 
                         <>
-                            <Avatar customStyles='mt-1' email={user.email} handleClick={() => setIsProfileBoxOpened(true)} /> 
+                            <Avatar customStyles='mt-1' user={user} handleClick={() => setIsProfileBoxOpened(true)} /> 
                             {isProfileBoxOpened && <ProfileBox handleCloseBtnClick={() => setIsProfileBoxOpened(false)} />}
                         </>
                         :
@@ -60,6 +58,5 @@ export default function Header() {
                 </div>
             </div>
         </div>
-        
     )
 }

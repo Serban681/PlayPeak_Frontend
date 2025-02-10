@@ -3,14 +3,13 @@
 import { BigBtn, TagSystem } from "@/components/styled-components/Buttons";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { ShopContext } from "@/context/ShopContext";
+import useGetUser from "@/hooks/useGetUser";
 import { addProductToCart } from "@/lib/cartRequests";
 import { getProductById } from "@/lib/productRequests";
 import { getVariancesForProduct } from "@/lib/productVarianceRequests";
 import { Product } from "@/models/Product";
 import { ProductVariance } from "@/models/ProductVariance";
-import { selectUser } from "@/store/userSlice";
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 export default function ProductPage({ params }: { params: { id: number}}) {
 
@@ -18,7 +17,7 @@ export default function ProductPage({ params }: { params: { id: number}}) {
     const [variances, setVariances] = useState<ProductVariance[]>([]);
     const [error, setError] = useState<string>('');
 
-    const user = useSelector(selectUser);
+    const { user } = useGetUser();
 
     const { cart, setCart, notifierState, setNotifierState } = useContext(ShopContext)!;
 
