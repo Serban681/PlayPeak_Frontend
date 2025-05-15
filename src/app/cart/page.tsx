@@ -21,7 +21,7 @@ export default function Page() {
             </div>
 
             {cart?.cartEntries.map((cartEntry, index) => (
-                <CartEntryComponent customStyles="mb-5" key={index} cartEntry={cartEntry} />
+                <CartEntryComponent customStyles="mb-5" key={index} cartEntry={cartEntry} cart={cart} />
             ))}
             <h5 className="text-lg font-medium mt-10">Total Price: {cart?.totalPrice.toFixed(2)}$</h5>
             {cart?.cartEntries.length !== 0 && <BigBtn handleClick={() => router.push('/checkout')} customStyles="mt-2">Proceed to checkout</BigBtn>}

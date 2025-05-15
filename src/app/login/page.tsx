@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 import { BigBtn } from "@/components/styled-components/Buttons";
 import { TextInput } from "@/components/styled-components/FormInput";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
-import { use, useEffect } from "react";
+import { use, useContext, useEffect } from "react";
 import Link from "next/link";
 import useGetUser from "@/hooks/useGetUser";
+import { ShopContext } from "@/context/ShopContext";
 
 type UserCredentials = {
     email: string;
@@ -19,11 +20,12 @@ export default function Page() {
     const { user, setUser } = useGetUser();
     const router = useRouter();
 
+    const { notifierState, setNotifierState } = useContext(ShopContext)!
 
     const { handleSubmit, control, formState } = useForm<UserCredentials>({
       defaultValues: {
-        email: "jil.jane@gmail.com",
-        password: "Jil123"
+        email: "admin@coolshop.com",
+        password: "admin"
       },
       mode: "all",
     });
@@ -32,7 +34,7 @@ export default function Page() {
       login(data.email, data.password)
         .then(res => setUser(res))
         .then(() => window.location.href = '/')
-        .catch(async err => await console.log(222, err))       
+        .catch(async err => await setNotifierState({ isError: true, message: err.message}))       
     });
 
     return (

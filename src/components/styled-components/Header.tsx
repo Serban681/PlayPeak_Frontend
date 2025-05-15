@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyledLogo } from './Title';
 import { BigBtn } from './Buttons';
-import { ShoppingCartIcon as ShoppingCartOutline } from '@heroicons/react/24/outline';
+import { BuildingLibraryIcon, ShoppingCartIcon as ShoppingCartOutline } from '@heroicons/react/24/outline';
 import { ShoppingCartIcon as ShoppingCartSolid } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
 import Avatar from './Avatar';
@@ -38,11 +38,13 @@ export default function Header() {
             <div className="flex justify-between mt-5">
                 <div className="block bg-red-100 w-0 h-0"></div>
                 <div className='flex'>
+                    {user.role == "ADMIN" && <BuildingLibraryIcon onClick={() => router.push('/inventory')} className='cursor-pointer hover:scale-110 size-7 mt-2 mr-4' /> }
+                    
                     {user.id !== -1 && 
                         <div className='relative cursor-pointer hover:scale-110'>
                             {cart?.cartEntries.length! > 0 ? <ShoppingCartSolid onClick={() => router.push('/cart')} className='size-7 mt-2 mr-4' /> : <ShoppingCartOutline onClick={() => router.push('/cart')} className='size-7 mt-2 mr-4' />}
                             
-                            {cart?.cartEntries.length! > 0 && <div className='w-4 h-4 bg-red-500 absolute top-1 right-2.5 rounded-full'>
+                            {cart?.cartEntries.length! > 0 && <div className='w-4 h-4 bg-red absolute top-1 right-2.5 rounded-full'>
                                 <h5 className='text-xs font-medium text-center text-white'>{getTotalItems()}</h5>
                             </div>}
                         </div>

@@ -32,3 +32,24 @@ export function RawTextInput({label, customStyles, name, value, handleChange, re
         </label>
     )
 }
+
+export function RawRadioInput({label, customStyles, name, value, handleChange, readOnly, possibleValues}: {label: string, customStyles?: string, name: string, value: string, handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void, readOnly: boolean, possibleValues: {[key: string]: string}}) {
+    return (
+        <div className={`${customStyles} block`}>
+            <label className="my-2">{label}:</label><br />
+            {Object.entries(possibleValues).map(([key, valueName], index) => (
+                <>
+                  <input
+                      key={index}
+                      type="radio"
+                      name={name}
+                      value={valueName}
+                      checked={value === valueName}
+                      onChange={handleChange}
+                      disabled={readOnly}
+                  /><span className="capitalize ml-1">{key}</span><br/>
+                </>
+            ))}
+        </div>
+    )
+}

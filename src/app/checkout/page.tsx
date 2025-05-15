@@ -1,6 +1,6 @@
 'use client'
 
-import { RawTextInput } from "@/components/form-hook-lib-inputs/TextInput";
+import { RawTextInput } from "@/components/form-hook-lib-inputs/Input";
 import { BigBtn, SmallBtn } from "@/components/styled-components/Buttons";
 import OrderCartEntry from "@/components/styled-components/OrderCartEntry";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";

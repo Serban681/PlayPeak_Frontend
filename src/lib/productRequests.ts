@@ -4,7 +4,7 @@ export async function getAllProducts(categories: string[], sortMethod: string): 
     category: string,
     products: Product[]
 }[]> {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/product/search',
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/product/search-category',
         {
             method: 'POST',
             headers: {
@@ -20,6 +20,19 @@ export async function getAllProducts(categories: string[], sortMethod: string): 
     return response.json();
 }
 
+export async function searchProductsByName(name: string): Promise<Product[]> {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/product/search-name?name=${name}`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    );
+
+    return response.json();
+}
+
 export async function getProductById(id: number) : Promise<Product> {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/product/' + id);
     
@@ -28,4 +41,18 @@ export async function getProductById(id: number) : Promise<Product> {
     }
 
     return response.json();
+}
+
+export async function deleteProductById(id: number) : Promise<void> {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/product/' + id,
+        {
+            method: 'DELETE'
+        }
+    )
+
+    if(!response.ok) {
+        return Promise.reject(await response);
+    }
+
+    return;
 }

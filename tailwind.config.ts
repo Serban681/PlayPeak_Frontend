@@ -26,6 +26,7 @@ const config: Config = {
         'dark-gray': '#585858',
         'turqoise': '#7bccce',
         'green': '#57c24f',
+        'red': '#e8574d'
       },
       boxShadow: {
         'big': '0.5rem 0.5rem 0 0 black'
