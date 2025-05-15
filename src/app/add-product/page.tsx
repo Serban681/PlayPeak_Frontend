@@ -1,7 +1,7 @@
 'use client'
 
 // import Btn from "@/components/form-hook-lib-inputs/Btn";
-import TextInput from "@/components/form-hook-lib-inputs/TextInput";
+import TextInput from "@/components/form-hook-lib-inputs/Input";
 import { Product } from "@/models/Product";
 import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";

@@ -4,16 +4,17 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { CartEntry } from '@/models/CartEntry'
 import { useContext } from 'react';
 import { ShopContext } from '@/context/ShopContext';
-import { removeProductFromCart, updateCartEntryQuantity } from '@/lib/cartRequests';
+import { addProductToCart, removeProductFromCart, updateCartEntryQuantity } from '@/lib/cartRequests';
 import { SmallTag } from './Tag';
+import { Cart } from '@/models/Cart';
 
-const CartEntryComponent = ({ customStyles, cartEntry }: { customStyles: string, cartEntry: CartEntry }) => {
+const CartEntryComponent = ({ customStyles, cartEntry, cart }: { customStyles: string, cartEntry: CartEntry, cart: Cart }) => {
     const { setCart, notifierState, setNotifierState } = useContext(ShopContext)!;
 
     const increaseQuantity = (e: any) => {
-        updateCartEntryQuantity(cartEntry.id, cartEntry.quantity + 1)
+        addProductToCart(cartEntry.productVariance.id, cart.id)
             .then(async res => await setCart(res))
-            .catch(async err => await setNotifierState({ ...notifierState, message: err }))
+            .catch(err => setNotifierState({ ...notifierState, message: err.message }))
     }
     
     const decreaseQuantity = (e: any) => {

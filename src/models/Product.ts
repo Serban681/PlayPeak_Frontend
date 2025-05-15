@@ -4,6 +4,7 @@ export interface Product {
     price: number,
     photoUrl: string,
     addedDate: Date,
+    inStock: boolean,
     category: string,
     attributesAndAttributeValues: {
         id?: number,

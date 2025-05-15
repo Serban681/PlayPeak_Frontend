@@ -1,6 +1,6 @@
 'use client'
 
-import { RawTextInput } from "@/components/form-hook-lib-inputs/TextInput";
+import { RawTextInput } from "@/components/form-hook-lib-inputs/Input";
 import { SmallBtn } from "@/components/styled-components/Buttons";
 import { SectionTitle } from "@/components/styled-components/SectionTitle";
 import { resetPassword } from "@/lib/userRequests";

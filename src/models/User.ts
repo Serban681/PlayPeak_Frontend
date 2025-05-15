@@ -4,6 +4,7 @@ export interface SimpleUser {
     id?: number,
     firstName: string,
     lastName: string,
+    role?: string,
     profileImageUrl?: string | null,
     email: string,
     phoneNumber: string,

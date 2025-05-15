@@ -57,7 +57,7 @@ export default function Page() {
                 country: ''
             }
         },
-        mode: 'onChange'
+        mode: 'all'
     });
 
     const [useAddressForBilling, setUseAddressForBilling] = useState(false);
@@ -74,15 +74,13 @@ export default function Page() {
         setUseAddressForBilling(useSameAddress);
 
         if(useSameAddress === true) {
-            setValue("defaultBillingAddress", getValues("defaultDeliveryAddress"));
+            setValue("defaultBillingAddress", getValues("defaultDeliveryAddress"), {
+                shouldDirty: true,
+                shouldTouch: true,
+                shouldValidate: true
+            });
         }
     }
-
-    // useEffect(() => {
-    //     if(useAddressForBilling) {
-    //         setValue("defaultBillingAddress", getValues("defaultDeliveryAddress"));
-    //     }
-    // }, [getValues("defaultDeliveryAddress")]);
 
     const onSubmit = handleSubmit(async (data) => {
         addUser(data)

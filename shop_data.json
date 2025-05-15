@@ -72,7 +72,10 @@
     "firstName": "Jil",
     "lastName": "Jane",
     "email": "jil.jane@gmail.com",
+    "profileImageUrl": null,
     "phoneNumber": "+0723894920",
+    "gender": "FEMALE",
+    "age": "23",
     "password": "Jil123",
     "defaultDeliveryAddress": {
         "streetLine": "Grove Street 23rd",

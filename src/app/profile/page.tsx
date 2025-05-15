@@ -1,6 +1,6 @@
 'use client'
 
-import { RawTextInput } from "@/components/form-hook-lib-inputs/TextInput"
+import { RawRadioInput, RawTextInput } from "@/components/form-hook-lib-inputs/Input"
 import { BigBtn, SmallBtn } from "@/components/styled-components/Buttons"
 import { SectionTitle } from "@/components/styled-components/SectionTitle"
 import { ShopContext } from "@/context/ShopContext";
@@ -115,12 +115,12 @@ export default function Page() {
                             <RawTextInput customStyles={!modifyProfile ? "bg-verylight-gray" : ""} label="Last Name"  name="lastName" value={userDetails.lastName} handleChange={handleUserDetailsChange} readOnly={!modifyProfile}  />
                             <RawTextInput customStyles={!modifyProfile ? "bg-verylight-gray" : ""} label="Email"  name="email" value={userDetails.email} handleChange={handleUserDetailsChange} readOnly={!modifyProfile}  />
                             <RawTextInput customStyles={!modifyProfile ? "bg-verylight-gray" : ""} label="Phone Number"  name="phoneNumber" value={userDetails.phoneNumber} handleChange={handleUserDetailsChange} readOnly={!modifyProfile}  />
-                            {/* <RawTextInput customStyles={!modifyDeliveryAddress ? "bg-verylight-gray" : ""} label="Password"  name="password" value={userDetails.password} handleChange={handleDeliveryAddressChange} readOnly={!modifyDeliveryAddress}  /> */}
+                            <RawTextInput customStyles={!modifyProfile ? "bg-verylight-gray" : ""} label="Age"  name="age" value={userDetails.age} handleChange={handleUserDetailsChange} readOnly={!modifyProfile}  />
+                            <RawRadioInput label="Gender" value={userDetails.gender} handleChange={handleUserDetailsChange} name="gender" readOnly={!modifyProfile} possibleValues={{'Male': 'MALE' , 'Female': 'FEMALE', 'Not Specified': 'NOT_MENTIONED'}} />
                             <SmallBtn handleClick={() => setModifyProfile(!modifyProfile)} customStyles="mt-3 bg-turqoise">{modifyProfile ? 'Done' : 'Edit'}</SmallBtn>
-                        
+
                             <h3 className="font-medium text-xl mt-7">Change Password</h3>
-                            <p className="mt-2 mb-3">Click <Link className="underline" href={'/change-password'}>here</Link> to change your password</p>
-                            
+                            <p className="mt-2 mb-3">Click <Link className="underline" href={'/change-password'}>here</Link> to change your password</p> 
                         </div>
                     </div>
                     
