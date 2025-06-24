@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FieldValues, useController, UseControllerProps } from "react-hook-form";
 
 interface TextInput<T extends FieldValues = FieldValues> extends UseControllerProps<T> {
+    customStyles?: string,
     label: string;
 }
 
@@ -19,6 +20,16 @@ export function TextInput<T extends FieldValues>({label, ...args}: TextInput<T>)
         <label className="block my-2 text-xl font-medium">
             {label}:<br/>
             <input className="focus:outline-none focus:border-black border-2 rounded-xl py-1 px-2 mb-3 font-light"  {...field} />
+        </label>   
+    );
+}
+
+export function SmallTextInput<T extends FieldValues>({customStyles, label, ...args}: TextInput<T>) {
+    const { field, fieldState } = useController(args);
+    return (  
+        <label className={`${customStyles} block text-sm font-medium`}>
+            {label}:
+            <input className="focus:outline-none focus:border-black border-2 rounded-xl py-1 px-2 font-light w-10 ml-1"  {...field} />
         </label>   
     );
 }
@@ -46,7 +57,7 @@ export function RadioInput({label, options, values, currentValue, setCurrentValu
             {label}: <span/><br />
             {options.map((option, index) => (
                 <span className="mr-2" key={index}>
-                    <input className="w-4 h-4 mr-2 " type="radio" checked={localCurrentValue === values[index]} value={values[index]} onClick={handleValueChange} />
+                    <input className="w-4 h-4 mr-2 " type="radio" checked={localCurrentValue === values[index]} value={values[index]} onChange={handleValueChange} />
                     {option}
                 </span>
             ))}

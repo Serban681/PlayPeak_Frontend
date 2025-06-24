@@ -84,7 +84,9 @@ export default function Page() {
 
     const onSubmit = handleSubmit(async (data) => {
         addUser(data)
-            .then(async res => await setUser(res))
+            .then(async res => {
+                await setUser(res)
+            })
             .then(() => window.location.href = '/')
             .catch(async err => setNotifierState({ ...notifierState, message: err }));
     });
@@ -133,7 +135,7 @@ export default function Page() {
 
                                 <label className="block my-2 text-xl font-medium">
                                     Use same address for billing: <span />
-                                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>) => toggleUseSameAddressForBilling(e.target.checked)} className="w-4 h-4" type="checkbox" name="useAddressForBilling" />
+                                    <input checked={useAddressForBilling} onChange={(e: React.ChangeEvent<HTMLInputElement>) => toggleUseSameAddressForBilling(e.target.checked)} className="w-4 h-4" type="checkbox" name="useAddressForBilling" />
                                 </label>
 
                                 <BigBtn handleClick={goToPrevStep} customStyles={"mr-2"}>Prev</BigBtn>

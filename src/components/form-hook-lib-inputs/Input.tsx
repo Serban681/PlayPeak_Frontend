@@ -1,3 +1,4 @@
+import React from "react";
 import { FieldValues, useController, UseControllerProps, UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
 
 interface TextInput<T extends FieldValues = FieldValues> extends UseControllerProps<T> {
@@ -38,9 +39,9 @@ export function RawRadioInput({label, customStyles, name, value, handleChange, r
         <div className={`${customStyles} block`}>
             <label className="my-2">{label}:</label><br />
             {Object.entries(possibleValues).map(([key, valueName], index) => (
-                <>
+                <React.Fragment key={index}>
                   <input
-                      key={index}
+                      
                       type="radio"
                       name={name}
                       value={valueName}
@@ -48,7 +49,7 @@ export function RawRadioInput({label, customStyles, name, value, handleChange, r
                       onChange={handleChange}
                       disabled={readOnly}
                   /><span className="capitalize ml-1">{key}</span><br/>
-                </>
+                </React.Fragment>
             ))}
         </div>
     )

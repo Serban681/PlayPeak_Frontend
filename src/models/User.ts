@@ -11,6 +11,7 @@ export interface SimpleUser {
     gender: string,
     age: string,
     password: string,
+    registrationDate?: string,
     defaultDeliveryAddressId?: number,
     defaultBillingAddressId?: number
 }
