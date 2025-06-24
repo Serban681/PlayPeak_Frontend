@@ -1,17 +1,57 @@
-import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+'use client';
 
-export default function StockPredictionChart({customStyles}: {customStyles?: string}) {
-    const data = [{name: 'Page A', uv: 400, pv: 2400, amt: 2400}];
+import { DemandPrediction } from "@/models/ProductVarianceDemand";
+import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis, Legend, ResponsiveContainer } from "recharts";
+
+export default function StockPredictionChart({
+    customStyles,
+    demandPrediction
+}: { customStyles?: string; demandPrediction?: DemandPrediction[] }) {
+    
+    const data = (demandPrediction ?? []).map(pred => ({
+        date: pred.date instanceof Date ? pred.date.toISOString().split('T')[0] : String(pred.date),
+        actual: pred.isPredicted ? null : pred.noOfOrders,
+        predicted: pred.isPredicted ? pred.noOfOrders : null
+    }));
 
     return (
-        <div className={customStyles}>
-            <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-            </LineChart>
+        <div className={`${data.length === 0 ? 'hidden' : 'block'}`}>
+            <ResponsiveContainer className={customStyles} width="100%" height={600}>
+                <LineChart
+                    data={data}
+                >
+                    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                    <XAxis 
+                        dataKey="date"
+                        interval={30}
+                        tickFormatter={(date) => {
+                            return date.slice(0, 7); 
+                        }}
+                    />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+
+                    <Line
+                        type="monotone"
+                        dataKey="actual"
+                        stroke="#65c5c7"
+                        strokeWidth={2}
+                        dot={{ r: 4 }}
+                        name="Actual Orders"
+                    />
+
+                    <Line
+                        type="monotone"
+                        dataKey="predicted"
+                        stroke="#e884d7"
+                        strokeDasharray="5 5"
+                        strokeWidth={2}
+                        dot={{ r: 4 }}
+                        name="Predicted Orders"
+                    />
+                </LineChart>
+            </ResponsiveContainer>
         </div>
-    )
+    );
 }

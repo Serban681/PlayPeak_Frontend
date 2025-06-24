@@ -9,11 +9,13 @@ export default function useGetUser() {
         email: '', 
         firstName: '', 
         lastName: '',
+        role: '',
         profileImageUrl: '',
         phoneNumber: '', 
         gender: '',
         age: '0',
         password: '',
+        registrationDate: '',
         defaultDeliveryAddress: {
             id: -1,
             streetLine: '',
@@ -54,6 +56,7 @@ export default function useGetUser() {
         setCurrUser({
             id: -1, 
             email: '', 
+            role: '',
             firstName: '', 
             lastName: '',
             profileImageUrl: '',
@@ -61,6 +64,7 @@ export default function useGetUser() {
             password: '',
             gender: '',
             age: '0',
+            registrationDate: '',
             defaultDeliveryAddress: {
                 id: -1,
                 streetLine: '',

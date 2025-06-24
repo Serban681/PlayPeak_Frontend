@@ -17,15 +17,16 @@ type UserCredentials = {
 }
 
 export default function Page() {
-    const { user, setUser } = useGetUser();
-    const router = useRouter();
+    const { setUser } = useGetUser();
 
-    const { notifierState, setNotifierState } = useContext(ShopContext)!
+    const { setNotifierState } = useContext(ShopContext)!
 
     const { handleSubmit, control, formState } = useForm<UserCredentials>({
       defaultValues: {
-        email: "admin@coolshop.com",
+        email: "admin@playpeak.com",
         password: "admin"
+        // email: "bill@gmail.com",
+        // password: "Bill123"
       },
       mode: "all",
     });
@@ -34,7 +35,7 @@ export default function Page() {
       login(data.email, data.password)
         .then(res => setUser(res))
         .then(() => window.location.href = '/')
-        .catch(async err => await setNotifierState({ isError: true, message: err.message}))       
+        .catch(async err => await setNotifierState({ isError: true, message: err.message}))
     });
 
     return (

@@ -7,7 +7,8 @@ import { ShopContext } from "@/context/ShopContext";
 import useGetUser from "@/hooks/useGetUser";
 import { updateUser } from "@/lib/userRequests";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { PhotoIcon } from '@heroicons/react/24/outline';
 
 export default function Page() {
     const {setNotifierState } = useContext(ShopContext)!;
@@ -22,6 +23,7 @@ export default function Page() {
         lastName: '',
         email: '',
         phoneNumber: '',
+        profileImageUrl: '',
         password: '',
         age: '0', 
         gender: 'NOT_MENTIONED'
@@ -43,6 +45,10 @@ export default function Page() {
         country: ''
     });
 
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [previewBase64, setPreviewBase64] = useState<string | null>(null);
+
     useEffect(() => {
         if(user) {
             setUserDetails({
@@ -50,12 +56,13 @@ export default function Page() {
                 lastName: user.lastName,
                 email: user.email,
                 phoneNumber: user.phoneNumber,
+                profileImageUrl: user.profileImageUrl!,
                 password: user.password,
                 age: user.age,
                 gender: user.gender
             });
             setDeliveryAddress(user.defaultDeliveryAddress);
-            setBillingAddress(user.defaultBillingAddress);   
+            setBillingAddress(user.defaultBillingAddress);
         }
     }, [user]);
 
@@ -80,32 +87,101 @@ export default function Page() {
         });
     }
 
-    const updateProfile = () => {
-        console.log({
-            defaultDeliveryAddress: { ...deliveryAddress },
-            defaultBillingAddress: { ...billingAddress }
-        })
+    const handleProfileImgClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
 
-        updateUser({
-            id: user.id!,
-            firstName: userDetails.firstName,
-            lastName: userDetails.lastName,
-            email: userDetails.email,
-            phoneNumber: userDetails.phoneNumber,
-            password: userDetails.password,
-            gender: userDetails.gender,
-            age: userDetails.age,
-            defaultDeliveryAddress: { ...deliveryAddress },
-            defaultBillingAddress: { ...billingAddress }
-        }).then(res => {setUser(res)})
-            .then(() => setNotifierState({ isError: false, message: 'Profile updated successfully' }))
-            .catch(err => setNotifierState({ isError: true, message: 'Profile update failed' }));
+    const handleFileChange = (event: any) => {
+        const file: File | undefined = event.target.files && event.target.files[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setPreviewUrl(imageUrl);
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result as string;
+                const base64Only = base64String.split(',')[1];
+                setPreviewBase64(base64Only);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const updateProfile = () => {
+        if(!!previewUrl) {
+            const form = new FormData()
+            form.append('image', previewBase64!);
+            
+
+            fetch('https://api.imgbb.com/1/upload?key=beaccd33cd2927f45cb243dc430dc60e', {
+                method: 'POST',
+                body: form
+            })
+            .then(response => response.json())
+            .then(image => {
+                updateUser({
+                    id: user.id!,
+                    firstName: userDetails.firstName,
+                    lastName: userDetails.lastName,
+                    role: user.role,
+                    email: userDetails.email,
+                    profileImageUrl: image.data.display_url,
+                    phoneNumber: userDetails.phoneNumber,
+                    password: userDetails.password,
+                    registrationDate: user.registrationDate,
+                    gender: userDetails.gender,
+                    age: userDetails.age,
+                    defaultDeliveryAddress: { ...deliveryAddress },
+                    defaultBillingAddress: { ...billingAddress }
+                }).then(res => {
+                    setUser(res);
+                })
+                .then(() => setNotifierState({ isError: false, message: 'Profile updated successfully' }))
+                .catch(err => setNotifierState({ isError: true, message: 'Profile update failed' }));
+            })
+        } else {
+            updateUser({
+                    id: user.id!,
+                    firstName: userDetails.firstName,
+                    lastName: userDetails.lastName,
+                    role: user.role,
+                    email: userDetails.email,
+                    profileImageUrl: userDetails.profileImageUrl,
+                    phoneNumber: userDetails.phoneNumber,
+                    password: userDetails.password,
+                    registrationDate: user.registrationDate,
+                    gender: userDetails.gender,
+                    age: userDetails.age,
+                    defaultDeliveryAddress: { ...deliveryAddress },
+                    defaultBillingAddress: { ...billingAddress }
+                }).then(res => {setUser(res)})
+                    .then(() => setNotifierState({ isError: false, message: 'Profile updated successfully' }))
+                    .catch(err => setNotifierState({ isError: true, message: 'Profile update failed' }));
+        }
     }
 
     return (
         <div className="flex justify-center w-full">
             <div className="w-10/12">
-                <SectionTitle>Profile</SectionTitle>
+                <div className="flex items-center">
+                    <SectionTitle>Profile</SectionTitle>
+                    {
+                        
+                        <div style={{ backgroundImage: `url(${!!previewUrl ? previewUrl : user.profileImageUrl})` }} onClick={handleProfileImgClick} className="ml-5 w-14 h-14 bg-cover bg-pink rounded-full flex justify-center items-center cursor-pointer">
+                            <PhotoIcon color="#FFFFFF" className="w-7" />
+                        </div>
+                    }
+
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        accept="image/png, image/jpeg"
+                        style={{ display: 'none' }}
+                    ></input>
+                </div>
 
                 <div className="flex flex-col xl:flex-row justify-between w-full">
                     <div>
