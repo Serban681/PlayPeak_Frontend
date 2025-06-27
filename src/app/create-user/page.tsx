@@ -34,19 +34,19 @@ export default function Page() {
         defaultBillingAddress: Address
     }>({
         defaultValues: {
-            firstName: 'Bill',
-            lastName: 'Ackman',
-            email: 'bill@gmail.com',
-            phoneNumber: '072819232',
-            password: 'Bill123',
-            passwordConfirm: 'Bill123',
-            age: '45',
-            gender: 'MALE', 
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            password: '',
+            passwordConfirm: '',
+            age: '',
+            gender: '', 
             defaultDeliveryAddress: {
-                streetLine: 'Main Street',
-                postalCode: '083729',
-                city: 'NY',
-                county: 'NY',
+                streetLine: '',
+                postalCode: '',
+                city: '',
+                county: '',
                 country: ''
             },
             defaultBillingAddress: {

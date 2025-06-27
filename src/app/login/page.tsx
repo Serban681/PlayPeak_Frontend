@@ -23,8 +23,10 @@ export default function Page() {
 
     const { handleSubmit, control, formState } = useForm<UserCredentials>({
       defaultValues: {
-        email: "admin@playpeak.com",
-        password: "admin"
+        email: "",
+        password: ""
+        // email: "admin@playpeak.com",
+        // password: "admin"
         // email: "bill@gmail.com",
         // password: "Bill123"
       },
