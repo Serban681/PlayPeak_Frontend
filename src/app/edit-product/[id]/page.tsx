@@ -98,7 +98,7 @@ export default function ({ params }: { params: { id: number}}) {
     }
 
     const generateNewPrediction = handleSubmit(async (data) => {      
-        if(!!data.totalDays && !!data.daysToPredict && data.totalDays > data.daysToPredict) {
+        if(!!data.totalDays && !!data.daysToPredict && parseInt(data.totalDays) > parseInt(data.daysToPredict)) {
             setGeneratingPredictions(true)
             generateNewVarianceDemandPrediction(selectedVariance?.id!, Number(data.daysToPredict), Number(data.totalDays))
                 .then(res => {
@@ -175,7 +175,7 @@ export default function ({ params }: { params: { id: number}}) {
                         <div className="flex items-center">
                             <SmallTextInput customStyles="mr-2" label="Days To Predict" control={control} name="daysToPredict" rules={{ required: true }} />
                             <SmallTextInput customStyles="mr-4" label="Total Days" control={control} name="totalDays" rules={{ required: true }} />
-                            <SmallBtn handleClick={generateNewPrediction} active={!generatingPredictions} customStyles="2mt-2">Generate New Predictions</SmallBtn>
+                            <SmallBtn handleClick={generateNewPrediction} active={!generatingPredictions}>Generate New Predictions</SmallBtn>
                         </div>
                     </div>
                     
