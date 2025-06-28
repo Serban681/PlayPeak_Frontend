@@ -2,7 +2,7 @@
 
 **PlayPeak_Frontend** is the frontend for the PlayPeak web application.
 
-## 🚀 Features
+## Features
 
 - Built with Next.js 14 and React 18
 - Form handling with `react-hook-form`
